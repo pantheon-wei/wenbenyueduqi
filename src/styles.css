@@ -10,3 +10,21 @@ dialog{border:1px solid #e3e6db;color:var(--ink);padding:0;background:#fafbf6;bo
 @media(max-width:700px){.app-shell{grid-template-columns:minmax(0,1fr);min-height:0}.sidebar{display:none;position:fixed;top:0;bottom:0;left:0;width:270px;box-shadow:10px 0 40px #0002}.shelf-open .sidebar{display:flex}.mobile-shelf{display:inline-flex;margin-right:0}.topbar{height:62px;min-height:62px;padding:0 15px;gap:6px}.breadcrumb{gap:8px;font-size:10px}.breadcrumb>span,.breadcrumb>svg{display:none}.breadcrumb strong{max-width:160px}.topbar-actions{gap:5px}.save-status{display:none}.reading-header{margin:0 17px;padding:25px 5px 21px;gap:9px}.reading-header h1{font-size:24px;letter-spacing:2px;margin:10px 0}.eyebrow{font-size:8px;letter-spacing:1.3px}.book-meta{font-size:9px}.reading-tools{margin-top:4px;gap:3px}.tool-button{padding:7px}.tool-button span{display:none}.reading-content{padding:26px 25px 0;letter-spacing:.3px}.reading-footer{padding:0 18px;height:55px;min-height:55px;gap:12px}.reading-footer>span:first-child{max-width:130px;flex:1}.progress-controls{min-width:120px;max-width:170px;gap:7px}.footer-hint{display:none}.settings-panel{top:62px;width:min(290px,85vw)}.outline-popover{top:106px;right:20px}.welcome{padding:65px 28px}.welcome h1{font-size:28px;letter-spacing:2px}.welcome>p{font-size:11px}.welcome-art{right:10%;bottom:10%;transform:scale(.7);transform-origin:bottom right}.modal{padding:25px 22px}.modal-heading h2{font-size:19px}.file-drop span{font-size:9px}.encoding-row{align-items:flex-start}.focus-mode .reading-header{width:calc(100% - 30px);margin:0 15px;padding:46px 5px 19px}.focus-mode .reading-footer{padding:0 18px}.focus-mode .settings-panel{display:none!important}.focus-mode .focus-bar{top:8px;right:10px}.book-list{min-height:80px}}
 @media(max-height:720px){.sidebar-import{margin:25px 0 23px}.daily-note{padding:12px 15px}.daily-note p{font-size:13px}.sidebar-bottom{padding-top:12px}.settings-panel{padding-top:24px}.settings-heading{margin-bottom:22px}.setting-section{margin-bottom:20px}.reading-header{padding-top:27px;padding-bottom:20px}.tip-card{margin-top:18px}.welcome-art{transform:scale(.6);transform-origin:bottom right}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+/* 紧凑的书籍信息区：长书名单行显示，把更多高度留给正文。 */
+.reading-header{padding-top:14px;padding-bottom:14px;align-items:center}
+.reading-header>div:first-child{flex:1;min-width:0}
+.reading-header h1{font-size:18px;line-height:1.4;letter-spacing:.5px;margin:4px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.reading-header .eyebrow{display:block;font-size:8px;line-height:1.4}
+.reading-header .book-meta{font-size:9px;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.reading-tools{flex-shrink:0;margin-top:0}
+.outline-popover{top:86px}
+.focus-mode .reading-header{padding-top:36px;padding-bottom:10px}
+.focus-mode .outline-popover{top:112px}
+@media(max-width:700px){
+  .reading-header{padding-top:10px;padding-bottom:10px}
+  .reading-header h1{font-size:16px}
+  .outline-popover{top:76px}
+  .focus-mode .reading-header{padding-top:36px;padding-bottom:10px}
+  .focus-mode .outline-popover{top:102px}
+}

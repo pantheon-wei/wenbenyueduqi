@@ -181,6 +181,7 @@ function showReader() {
   if (!book) { $('currentTitle').textContent = '阅读空间'; document.title = '拾页 · 把时间留给阅读'; setFocus(false); return; }
   state.parsed = parseText(book.content);
   $('currentTitle').textContent = book.title; $('readerTitle').textContent = book.title; $('focusTitle').textContent = book.title;
+  $('readerTitle').title = book.title;
   $('bookCategory').textContent = book.author === '拾页原创' ? '慢读 · 原创随笔' : '私人书架 · 文本';
   $('bookMeta').textContent = `${book.author}　 /　 ${state.parsed.characters.toLocaleString()} 字　 /　 约 ${Math.ceil(state.parsed.characters / 400)} 分钟`;
   document.title = `${book.title} · 拾页`;
