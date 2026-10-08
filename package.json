@@ -1,0 +1,14 @@
+{
+  "name": "leaf-text-reader",
+  "version": "1.0.0",
+  "private": true,
+  "description": "拾页 · 本地文本阅读器",
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test tests/core.test.mjs",
+    "test:browser": "node tests/browser-smoke.mjs",
+    "check": "node --check src/app.js && node --check src/core.js && node --check server.mjs"
+  },
+  "engines": { "node": ">=18" }
+}

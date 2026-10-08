@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f6f7f2">
+  <meta name="description" content="拾页，一个安静的本地文本阅读器。收藏文字，也收藏阅读的时光。">
+  <title>拾页 · 把时间留给阅读</title>
+  <link rel="icon" href="./assets/leaf.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./src/styles.css">
+  <script type="module" src="./src/app.js"></script>
+</head>
+<body>
+  <svg class="svg-defs" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M20 4c-8-2-15 2-15 8a7 7 0 0 0 7 7c6 0 9-7 8-15Z"/><path d="M4 21 15 10M9 16v-5m0 5h5"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 5v15M3 4c4-1 7 0 9 2 2-2 5-3 9-2v15c-4-1-7 0-9 2-2-2-5-3-9-2Z"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></symbol>
+    <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 4h12v17l-6-4-6 4Z"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/></symbol>
+    <symbol id="i-focus" viewBox="0 0 24 24"><path d="M9 4H4v5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 14h10l1-14M10 11v6M14 11v6"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V3m-5 5 5-5 5 5M4 16v5h16v-5"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v13m-5-5 5 5 5-5M4 16v5h16v-5"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 15A9 9 0 0 1 9 4a9 9 0 1 0 11 11Z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+  </svg>
+
+  <div class="app-shell" id="appShell">
+    <aside class="sidebar" id="sidebar" aria-label="书架">
+      <a class="brand" href="#" aria-label="拾页首页"><span class="brand-mark"><svg><use href="#i-leaf"/></svg></span><span>拾页<span class="brand-en">LEAF READER</span></span></a>
+      <button class="primary import-trigger sidebar-import"><svg><use href="#i-plus"/></svg>导入文本<span class="key-hint">+</span></button>
+      <div class="shelf-heading"><h2><svg><use href="#i-grid"/></svg>我的书架</h2><span class="count" id="bookCount">0</span></div>
+      <label class="shelf-search"><svg><use href="#i-search"/></svg><input id="shelfSearch" type="search" placeholder="搜索书名" autocomplete="off" aria-label="搜索书架中的书名"></label>
+      <div class="shelf-sort"><span>所有书籍</span><select id="sortBooks" aria-label="书架排序"><option value="recent">最近阅读</option><option value="added">最近添加</option><option value="title">书名排序</option></select></div>
+      <div class="book-list" id="bookList"><p class="muted loading-text">正在打开书架…</p></div>
+      <div class="sidebar-bottom">
+        <div class="daily-note"><span class="note-label">给自己一点留白</span><p>翻开一页，<br>让世界慢下来。</p><svg><use href="#i-leaf"/></svg></div>
+        <div class="data-actions"><button id="exportBackup"><svg><use href="#i-download"/></svg>备份</button><button id="restoreBackup"><svg><use href="#i-upload"/></svg>恢复</button><button id="showHelp" aria-label="使用帮助">?</button></div>
+        <p class="local-note"><span class="status-dot"></span>书籍仅保存在此浏览器</p>
+      </div>
+    </aside>
+
+    <main class="main-panel">
+      <header class="topbar">
+        <div class="breadcrumb"><button class="icon-button mobile-shelf" id="toggleShelf" aria-label="打开书架"><svg><use href="#i-grid"/></svg></button><span>我的书架</span><svg><use href="#i-chevron"/></svg><strong id="currentTitle">阅读空间</strong></div>
+        <div class="topbar-actions"><span class="save-status" id="saveStatus" role="status"><span class="status-dot"></span>本地保存</span><button class="icon-button" id="toggleFocus" title="专注模式（F）" aria-label="开启专注模式" aria-pressed="false"><svg><use href="#i-focus"/></svg></button><button class="icon-button settings-toggle" id="toggleSettings" title="阅读设置" aria-label="打开阅读设置" aria-expanded="false"><svg><use href="#i-settings"/></svg></button></div>
+      </header>
+
+      <section class="welcome" id="welcome" hidden>
+        <span class="eyebrow">YOUR QUIET CORNER</span><h1>把时间，留给阅读。</h1><p>从一本书开始，找到属于自己的节奏。</p><button class="primary import-trigger"><svg><use href="#i-plus"/></svg>导入第一本书</button><button class="text-button" id="loadSample">试读《林间漫步》<svg><use href="#i-arrow"/></svg></button><div class="welcome-art" aria-hidden="true"><div class="art-book"><svg><use href="#i-leaf"/></svg><span>拾一页<br>好时光</span></div><span class="art-circle"></span></div>
+      </section>
+
+      <div class="reading-workspace" id="readingWorkspace" hidden>
+        <section class="reader-column" aria-label="文本阅读区">
+          <div class="reading-header"><div><span class="eyebrow" id="bookCategory">慢读 · 随笔</span><h1 id="readerTitle"></h1><p class="book-meta" id="bookMeta"></p></div><div class="reading-tools"><button class="tool-button" id="toggleOutline" aria-label="显示章节目录" aria-expanded="false"><svg><use href="#i-list"/></svg><span>目录</span></button><button class="tool-button" id="addBookmark" title="为当前位置添加书签（B）"><svg><use href="#i-bookmark"/></svg><span>书签</span></button></div></div>
+          <div class="outline-popover" id="outlinePanel" hidden><div class="popover-heading"><h3>章节目录</h3><button class="icon-button" id="closeOutline" aria-label="关闭目录"><svg><use href="#i-close"/></svg></button></div><div id="outlineList"></div></div>
+          <div class="reader-scroll" id="readerScroll" tabindex="0" aria-label="正文，使用方向键或滚轮阅读"><article class="reading-content" id="readingContent"></article><div class="end-note"><span></span><svg><use href="#i-leaf"/></svg><span></span><p>这一页的故事，留在心里。</p></div></div>
+          <footer class="reading-footer"><span id="currentChapter">开始阅读</span><div class="progress-controls"><label for="readingProgress" class="sr-only">阅读进度</label><input id="readingProgress" type="range" min="0" max="100" step="0.1" value="0"><output id="progressLabel" for="readingProgress">0%</output></div><span class="footer-hint">每一页，都算数</span></footer>
+        </section>
+
+        <aside class="settings-panel" id="settingsPanel" aria-label="阅读设置">
+          <div class="settings-heading"><h2><svg><use href="#i-settings"/></svg>阅读设置</h2><button class="icon-button mobile-close-settings" id="closeSettings" aria-label="关闭阅读设置"><svg><use href="#i-close"/></svg></button></div>
+          <section class="setting-section"><div class="setting-label"><label for="fontSize">文字大小</label><output id="fontSizeValue" for="fontSize">20 px</output></div><div class="font-control"><button id="fontDown" aria-label="减小字号">A−</button><input id="fontSize" type="range" min="14" max="36" step="1" value="20"><button id="fontUp" aria-label="增大字号">A+</button></div></section>
+          <section class="setting-section"><div class="setting-label"><span>正文字体</span></div><div class="segmented" id="fontFamilyButtons"><button data-font="serif" aria-pressed="true">宋体</button><button data-font="sans" aria-pressed="false">黑体</button></div></section>
+          <section class="setting-section"><div class="setting-label"><label for="lineHeight">行间距</label><output id="lineHeightValue" for="lineHeight">1.9</output></div><input id="lineHeight" type="range" min="1.4" max="2.6" step="0.1" value="1.9"></section>
+          <section class="setting-section"><div class="setting-label"><span>阅读背景</span><span id="themeName" class="setting-value">纸白</span></div><div class="theme-options" id="themeOptions"><button data-theme="paper" class="theme-swatch paper" title="纸白" aria-label="纸白背景" aria-pressed="true"><svg><use href="#i-check"/></svg></button><button data-theme="warm" class="theme-swatch warm" title="暖砂" aria-label="暖砂背景" aria-pressed="false"><svg><use href="#i-check"/></svg></button><button data-theme="green" class="theme-swatch green" title="青苔" aria-label="青苔背景" aria-pressed="false"><svg><use href="#i-check"/></svg></button><button data-theme="night" class="theme-swatch night" title="夜读" aria-label="夜读背景" aria-pressed="false"><svg><use href="#i-moon"/></svg></button><label class="theme-swatch custom" title="自定义背景"><input id="customBackground" type="color" value="#f5f1e8" aria-label="自定义阅读背景颜色"><span>+</span></label></div></section>
+          <section class="eye-setting"><div><span><svg><use href="#i-eye"/></svg>护眼模式</span><p>柔和绿底，让阅读更舒适</p></div><button id="eyeMode" class="switch" role="switch" aria-checked="false" aria-label="护眼模式"><span></span></button></section>
+          <button class="reset-settings" id="resetSettings">恢复默认设置</button>
+          <div class="settings-divider"></div>
+          <section class="reading-stats"><h3>阅读足迹</h3><div class="stat-row"><div><strong id="sessionMinutes">0<span> 分钟</span></strong><p>本次阅读</p></div><div><strong id="statProgress">0<span> %</span></strong><p>本书进度</p></div></div><div class="mini-progress"><span id="miniProgressBar"></span></div><p class="stats-caption" id="remainingTime">慢慢读，不必赶时间。</p></section>
+          <section class="bookmark-section"><div class="setting-label"><h3>我的书签</h3><span id="bookmarkCount" class="count">0</span></div><div id="bookmarkList" class="bookmark-list"></div></section>
+          <div class="tip-card"><svg><use href="#i-leaf"/></svg><p>好的阅读，<br>是和自己的一次对话。</p></div>
+        </aside>
+      </div>
+      <div class="focus-bar"><span id="focusTitle">专注阅读</span><button id="exitFocus"><svg><use href="#i-focus"/></svg>退出专注<span>Esc</span></button></div>
+    </main>
+  </div>
+
+  <div class="mobile-backdrop" id="mobileBackdrop" hidden></div>
+  <div class="drop-overlay" id="dropOverlay" hidden><svg><use href="#i-upload"/></svg><h2>把文字放在这里</h2><p>松开鼠标，导入 TXT 或 Markdown 文本</p></div>
+  <dialog id="importDialog" class="modal"><div class="modal-heading"><div><span class="eyebrow">A NEW CHAPTER</span><h2>让一本书，住进书架。</h2></div><button class="icon-button" data-close="importDialog" aria-label="关闭导入窗口"><svg><use href="#i-close"/></svg></button></div><div class="import-tabs" role="group" aria-label="导入方式"><button id="fileTab" class="active" aria-pressed="true">选择文件</button><button id="pasteTab" aria-pressed="false">粘贴文本</button></div><form id="fileForm"><label class="file-drop" id="fileDrop"><svg><use href="#i-upload"/></svg><strong>点击选择，或拖入文本文件</strong><span>支持 .txt / .md / .text，单个文件最大 10 MB</span><input id="fileInput" type="file" accept=".txt,.md,.text,text/plain,text/markdown" multiple></label><div class="encoding-row"><label for="encoding">文本编码</label><select id="encoding"><option value="auto">自动识别 UTF-8 / GB18030</option><option value="utf-8">UTF-8</option><option value="gb18030">GB18030 / GBK</option><option value="utf-16le">UTF-16 LE</option><option value="utf-16be">UTF-16 BE</option></select></div><p class="modal-hint">支持一次导入多本；若出现乱码，请手动选择原文件编码。</p></form><form id="pasteForm" hidden><label for="pasteTitle">书名</label><input id="pasteTitle" type="text" maxlength="120" placeholder="给这段文字起个名字" required><label for="pasteContent">正文</label><textarea id="pasteContent" rows="8" placeholder="粘贴你的故事、笔记，或想慢慢读的文字…" required></textarea><button class="primary" id="pasteSubmit" type="submit"><svg><use href="#i-plus"/></svg>加入书架</button></form><p id="importMessage" class="form-message" role="status"></p></dialog>
+  <dialog id="confirmDialog" class="modal small-modal"><div class="modal-heading"><h2 id="confirmTitle">删除这本书？</h2><button class="icon-button" data-close="confirmDialog" aria-label="取消"><svg><use href="#i-close"/></svg></button></div><p id="confirmMessage"></p><div class="modal-actions"><button class="secondary" id="cancelConfirm">取消</button><button class="danger" id="acceptConfirm">确认删除</button></div></dialog>
+  <dialog id="helpDialog" class="modal"><div class="modal-heading"><h2>安心阅读，从这里开始。</h2><button class="icon-button" data-close="helpDialog" aria-label="关闭帮助"><svg><use href="#i-close"/></svg></button></div><div class="help-content"><p>点击「导入文本」选择文件，或直接拖入文件、粘贴文字。导入后，点击书架中的书即可继续阅读。</p><p>阅读位置、书签和排版设置会自动保存。更改字号和窗口大小后，也会尽量保持当前段落的位置。</p><p><strong>数据保存在当前浏览器、当前网址的本地数据库中。</strong>换浏览器、换访问端口或清理网站数据后，书架不会自动迁移。建议定期点击「备份」，在新环境中使用「恢复」。恢复采用合并方式。</p><p>护眼模式提供柔和配色；合理休息同样重要。夜读和自定义背景可在右侧选择。</p><div class="shortcut-list"><span>专注模式 <kbd>F</kbd></span><span>添加书签 <kbd>B</kbd></span><span>退出专注 / 收起浮层 <kbd>Esc</kbd></span><span>阅读翻页 <kbd>PageUp / PageDown</kbd></span></div><p class="muted">《林间漫步》为本项目原创演示文本。Markdown 文件按纯文本阅读，不执行其中的 HTML 或脚本。</p></div></dialog>
+  <input id="backupInput" type="file" accept=".json,application/json" hidden>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <div id="fatalError" class="fatal-error" role="alert" hidden></div>
+</body>
+</html>
