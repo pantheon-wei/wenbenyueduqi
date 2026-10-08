@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f6f7f2">
   <meta name="description" content="拾页，一个安静的本地文本阅读器。收藏文字，也收藏阅读的时光。">
   <title>拾页 · 把时间留给阅读</title>
-  <link rel="icon" href="./assets/leaf.svg" type="image/svg+xml">
+ <link rel="icon" href="./assets/logo.png" type="image/png">
   <link rel="stylesheet" href="./src/styles.css">
   <script type="module" src="./src/app.js"></script><!--项目使用ES6模块允许js互相导入-->
 </head>
@@ -35,7 +35,7 @@
 
   <div class="app-shell" id="appShell">
     <aside class="sidebar" id="sidebar" aria-label="书架"><!--左侧边栏-->
-      <a class="brand" href="#" aria-label="拾页首页"><span class="brand-mark"><svg><use href="#i-leaf"/></svg></span><span>拾页<span class="brand-en">LEAF READER</span></span></a>
+      <a class="brand" href="#" aria-label="拾页首页"><span class="brand-mark"><img src="./assets/logo.png" alt="阅读器图标"></span><span>拾页<span class="brand-en">LEAF READER</span></span></a>
       <button class="primary import-trigger sidebar-import"><svg><use href="#i-plus"/></svg>导入文本<span class="key-hint">+</span></button>
       <div class="shelf-heading"><h2><svg><use href="#i-grid"/></svg>我的书架</h2><span class="count" id="bookCount">0</span></div>
       <label class="shelf-search"><svg><use href="#i-search"/></svg><input id="shelfSearch" type="search" placeholder="搜索书名" autocomplete="off" aria-label="搜索书架中的书名"></label>

@@ -29,3 +29,9 @@ dialog{border:1px solid #e3e6db;color:var(--ink);padding:0;background:#fafbf6;bo
   .focus-mode .reading-header{padding-top:36px;padding-bottom:10px}
   .focus-mode .outline-popover{top:102px}
 }
+/* 左上角阅读器图标 */
+.brand-mark img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
