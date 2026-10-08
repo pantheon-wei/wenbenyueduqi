@@ -179,13 +179,13 @@ function showReader() {
   const book = currentBook();
   $('welcome').hidden = !!book; $('readingWorkspace').hidden = !book;
   $('toggleFocus').disabled = !book; $('toggleSettings').disabled = !book;
-  if (!book) { $('currentTitle').textContent = '阅读空间'; document.title = '拾页 · 把时间留给阅读'; setFocus(false); return; }
+  if (!book) { $('currentTitle').textContent = '阅读空间'; document.title = '爱书'; setFocus(false); return; }
   state.parsed = parseText(book.content);
   $('currentTitle').textContent = book.title; $('readerTitle').textContent = book.title; $('focusTitle').textContent = book.title;
   $('readerTitle').title = book.title;
   $('bookCategory').textContent = book.author === '拾页原创' ? '慢读 · 原创随笔' : '私人书架 · 文本';
   $('bookMeta').textContent = `${book.author}　 /　 ${state.parsed.characters.toLocaleString()} 字　 /　 约 ${Math.ceil(state.parsed.characters / 400)} 分钟`;
-  document.title = `${book.title} · 拾页`;
+  document.title = `${book.title} · 爱书`;
   const fragment = document.createDocumentFragment();
   let chapterNumber = 0;
   for (const block of state.parsed.blocks) {
@@ -291,7 +291,7 @@ async function exportBackup() {
   if (new Blob([content]).size > MAX_BACKUP_BYTES) { toast('完整备份超过 60 MB，请先保存原始文本并减少书架内容。'); return; }
   // 使用本地日历日期，避免 UTC 在北京时间凌晨显示前一天。
   const now = new Date(); const date = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-  download(`拾页备份-${date}.json`, content, 'application/json'); toast('备份已导出，包含正文、进度、书签和设置。');
+  download(`备份-${date}.json`, content, 'application/json'); toast('备份已导出，包含正文、进度、书签和设置。');
 }
 async function restoreBackup(file) {
   if (!file || importing) return;
@@ -381,7 +381,7 @@ function bindEvents() {
   window.addEventListener('resize', () => { if (innerWidth > 1160) closePanels(); });
   window.addEventListener('pagehide', () => { capturePosition(); writeCheckpoint(); saveNow(); });
   document.addEventListener('visibilitychange', () => { tickTime = Date.now(); if (document.hidden) { capturePosition(); writeCheckpoint(); saveNow(); } });
-  window.addEventListener('storage-blocked', () => toast('本地数据库已变化或被其他页面占用，请关闭其他拾页页面并刷新。'));
+  window.addEventListener('storage-blocked', () => toast('本地数据库已变化或被其他页面占用，请关闭其他爱书页面并刷新。'));
   setInterval(() => {
     const now = Date.now(); const elapsed = Math.min(5, Math.max(0, (now - tickTime) / 1000)); tickTime = now;
     if (!document.hidden && document.hasFocus() && currentBook() && !document.querySelector('dialog[open]')) {
@@ -408,7 +408,7 @@ async function initialize() {
       }
     } catch { /* 损坏的辅助恢复点不影响数据库中的正式书架。 */ }
     if (!library.meta.initialized && !state.books.size) {
-      const sample = await makeBook(SAMPLE_TITLE, SAMPLE_TEXT, '拾页原创');
+      const sample = await makeBook(SAMPLE_TITLE, SAMPLE_TEXT, '爱书原创');
       sample.lastRead = Date.now();
       await storage.writeBooks([sample], [stateRecord(sample)], { initialized: true, currentId: sample.id });
       state.books.set(sample.id, sample); state.currentId = sample.id;
