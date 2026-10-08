@@ -8,9 +8,9 @@
   <title>拾页 · 把时间留给阅读</title>
   <link rel="icon" href="./assets/leaf.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./src/styles.css">
-  <script type="module" src="./src/app.js"></script>
+  <script type="module" src="./src/app.js"></script><!--项目使用ES6模块允许js互相导入-->
 </head>
-<body>
+<body><!--存放全部按钮图标不用外部导入-->
   <svg class="svg-defs" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
     <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M20 4c-8-2-15 2-15 8a7 7 0 0 0 7 7c6 0 9-7 8-15Z"/><path d="M4 21 15 10M9 16v-5m0 5h5"/></symbol>
     <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
@@ -34,7 +34,7 @@
   </svg>
 
   <div class="app-shell" id="appShell">
-    <aside class="sidebar" id="sidebar" aria-label="书架">
+    <aside class="sidebar" id="sidebar" aria-label="书架"><!--左侧边栏-->
       <a class="brand" href="#" aria-label="拾页首页"><span class="brand-mark"><svg><use href="#i-leaf"/></svg></span><span>拾页<span class="brand-en">LEAF READER</span></span></a>
       <button class="primary import-trigger sidebar-import"><svg><use href="#i-plus"/></svg>导入文本<span class="key-hint">+</span></button>
       <div class="shelf-heading"><h2><svg><use href="#i-grid"/></svg>我的书架</h2><span class="count" id="bookCount">0</span></div>
@@ -44,11 +44,11 @@
       <div class="sidebar-bottom">
         <div class="daily-note"><span class="note-label">给自己一点留白</span><p>翻开一页，<br>让世界慢下来。</p><svg><use href="#i-leaf"/></svg></div>
         <div class="data-actions"><button id="exportBackup"><svg><use href="#i-download"/></svg>备份</button><button id="restoreBackup"><svg><use href="#i-upload"/></svg>恢复</button><button id="showHelp" aria-label="使用帮助">?</button></div>
-        <p class="local-note"><span class="status-dot"></span>书籍仅保存在此浏览器</p>
+        <p class="local-note"><span class="status-dot"></span>爱书</p>
       </div>
     </aside>
 
-    <main class="main-panel">
+    <main class="main-panel"><!--主区域-->
       <header class="topbar">
         <div class="breadcrumb"><button class="icon-button mobile-shelf" id="toggleShelf" aria-label="打开书架"><svg><use href="#i-grid"/></svg></button><span>我的书架</span><svg><use href="#i-chevron"/></svg><strong id="currentTitle">阅读空间</strong></div>
         <div class="topbar-actions"><span class="save-status" id="saveStatus" role="status"><span class="status-dot"></span>本地保存</span><button class="icon-button" id="toggleFocus" title="专注模式（F）" aria-label="开启专注模式" aria-pressed="false"><svg><use href="#i-focus"/></svg></button><button class="icon-button settings-toggle" id="toggleSettings" title="阅读设置" aria-label="打开阅读设置" aria-expanded="false"><svg><use href="#i-settings"/></svg></button></div>
@@ -83,7 +83,7 @@
       <div class="focus-bar"><span id="focusTitle">专注阅读</span><button id="exitFocus"><svg><use href="#i-focus"/></svg>退出专注<span>Esc</span></button></div>
     </main>
   </div>
-
+<!--弹窗模块-->
   <div class="mobile-backdrop" id="mobileBackdrop" hidden></div>
   <div class="drop-overlay" id="dropOverlay" hidden><svg><use href="#i-upload"/></svg><h2>把文字放在这里</h2><p>松开鼠标，导入 TXT 或 Markdown 文本</p></div>
   <dialog id="importDialog" class="modal"><div class="modal-heading"><div><span class="eyebrow">A NEW CHAPTER</span><h2>让一本书，住进书架。</h2></div><button class="icon-button" data-close="importDialog" aria-label="关闭导入窗口"><svg><use href="#i-close"/></svg></button></div><div class="import-tabs" role="group" aria-label="导入方式"><button id="fileTab" class="active" aria-pressed="true">选择文件</button><button id="pasteTab" aria-pressed="false">粘贴文本</button></div><form id="fileForm"><label class="file-drop" id="fileDrop"><svg><use href="#i-upload"/></svg><strong>点击选择，或拖入文本文件</strong><span>支持 .txt / .md / .text，单个文件最大 10 MB</span><input id="fileInput" type="file" accept=".txt,.md,.text,text/plain,text/markdown" multiple></label><div class="encoding-row"><label for="encoding">文本编码</label><select id="encoding"><option value="auto">自动识别 UTF-8 / GB18030</option><option value="utf-8">UTF-8</option><option value="gb18030">GB18030 / GBK</option><option value="utf-16le">UTF-16 LE</option><option value="utf-16be">UTF-16 BE</option></select></div><p class="modal-hint">支持一次导入多本；若出现乱码，请手动选择原文件编码。</p></form><form id="pasteForm" hidden><label for="pasteTitle">书名</label><input id="pasteTitle" type="text" maxlength="120" placeholder="给这段文字起个名字" required><label for="pasteContent">正文</label><textarea id="pasteContent" rows="8" placeholder="粘贴你的故事、笔记，或想慢慢读的文字…" required></textarea><button class="primary" id="pasteSubmit" type="submit"><svg><use href="#i-plus"/></svg>加入书架</button></form><p id="importMessage" class="form-message" role="status"></p></dialog>

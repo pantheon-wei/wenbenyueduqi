@@ -1,3 +1,4 @@
+//把书籍和阅读数据保存到浏览器数据库
 const DB_NAME = 'leaf-reader';
 const DB_VERSION = 1;
 let database;

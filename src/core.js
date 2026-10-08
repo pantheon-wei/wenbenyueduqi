@@ -1,4 +1,4 @@
-// 不依赖 DOM 的文本处理、数据校验和阅读位置算法。
+// 不依赖 DOM 的文本处理、数据校验和阅读位置算法。文本解码、章节识别、阅读位置计算等核心算法
 export const MAX_FILE_BYTES = 10 * 1024 * 1024;
 export const MAX_BACKUP_BYTES = 60 * 1024 * 1024;
 export const MAX_BOOKS = 200;

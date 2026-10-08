@@ -1,3 +1,4 @@
+//按钮点击后做什么：导入、切书、设置、书签等
 import { MAX_FILE_BYTES, MAX_BACKUP_BYTES, MAX_BOOKS, DEFAULT_SETTINGS, THEMES, normalizeSettings, contrastColor, normalizeText, parseText, decodeText, contentId, normalizeBookState, positionFromScroll, scrollFromPosition, validateBackup } from './core.js';
 import * as storage from './storage.js';
 import { SAMPLE_TITLE, SAMPLE_TEXT } from './sample.js';
