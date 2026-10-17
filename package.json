@@ -2,7 +2,7 @@
   "name": "leaf-text-reader",
   "version": "1.0.0",
   "private": true,
-  "description": "拾页 · 本地文本阅读器",
+  "description": "爱书",
   "type": "module",
   "scripts": {
     "start": "node server.mjs",

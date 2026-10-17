@@ -23,7 +23,7 @@ const server = http.createServer(async (req, res) => {
     res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' }).end('文件未找到');
   }
 });
-server.listen(port, '127.0.0.1', () => console.log(`拾页已启动：http://localhost:${port}\n按 Ctrl+C 停止服务。`));
+server.listen(port, '127.0.0.1', () => console.log(`爱书已启动：http://localhost:${port}\n按 Ctrl+C 停止服务。`));
 server.on('error', (error) => {
   console.error(error.code === 'EADDRINUSE' ? `端口 ${port} 已被占用，请修改 PORT 环境变量后重试。` : error.message);
   process.exitCode = 1;
